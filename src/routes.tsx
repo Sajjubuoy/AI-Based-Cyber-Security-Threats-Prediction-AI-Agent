@@ -1,4 +1,9 @@
-import SamplePage from './pages/SamplePage';
+import Home from './pages/Home';
+import StaticDataDashboard from './pages/StaticDataDashboard';
+import StreamingDataDashboard from './pages/StreamingDataDashboard';
+import NetworkDashboard from './pages/NetworkDashboard';
+import MLDashboard from './pages/MLDashboard';
+import ThreatReports from './pages/ThreatReports';
 import type { ReactNode } from 'react';
 
 interface RouteConfig {
@@ -10,10 +15,41 @@ interface RouteConfig {
 
 const routes: RouteConfig[] = [
   {
-    name: 'Sample Page',
+    name: 'Overview',
     path: '/',
-    element: <SamplePage />
-  }
+    element: <Home />,
+    visible: true,
+  },
+  {
+    name: 'Static Data',
+    path: '/static-data',
+    element: <StaticDataDashboard />,
+    visible: true,
+  },
+  {
+    name: 'Streaming Data',
+    path: '/streaming-data',
+    element: <StreamingDataDashboard />,
+    visible: true,
+  },
+  {
+    name: 'Network VPN/WiFi',
+    path: '/network',
+    element: <NetworkDashboard />,
+    visible: true,
+  },
+  {
+    name: 'ML Dashboard',
+    path: '/ml-dashboard',
+    element: <MLDashboard />,
+    visible: true,
+  },
+  {
+    name: 'Threat Reports',
+    path: '/reports',
+    element: <ThreatReports />,
+    visible: true,
+  },
 ];
 
 export default routes;
