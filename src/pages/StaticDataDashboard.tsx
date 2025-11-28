@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ThreatCard } from '@/components/security/ThreatCard';
 import { MetricCard } from '@/components/security/MetricCard';
+import { ThreatBarChart } from '@/components/security/ThreatBarChart';
+import { ThreatPieChart } from '@/components/security/ThreatPieChart';
 import { Progress } from '@/components/ui/progress';
 import { generateThreats } from '@/lib/utils/threatGenerator';
+import { toast } from 'sonner';
 import type { Threat } from '@/types';
 import {
   Database,
@@ -22,6 +25,7 @@ export default function StaticDataDashboard() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisProgress, setAnalysisProgress] = useState(0);
   const [datasetSize, setDatasetSize] = useState(0);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const initialThreats = generateThreats(8);
@@ -29,9 +33,23 @@ export default function StaticDataDashboard() {
     setDatasetSize(Math.floor(Math.random() * 50000) + 10000);
   }, []);
 
+  const handleUpload = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      toast.success(`File "${file.name}" uploaded successfully`);
+      setDatasetSize(Math.floor(Math.random() * 50000) + 10000);
+      handleAnalyze();
+    }
+  };
+
   const handleAnalyze = () => {
     setIsAnalyzing(true);
     setAnalysisProgress(0);
+    toast.info('Starting data analysis...');
 
     const interval = setInterval(() => {
       setAnalysisProgress(prev => {
@@ -40,6 +58,7 @@ export default function StaticDataDashboard() {
           setIsAnalyzing(false);
           const newThreats = generateThreats(8);
           setThreats(newThreats);
+          toast.success('Analysis completed successfully');
           return 100;
         }
         return prev + 10;
@@ -47,9 +66,43 @@ export default function StaticDataDashboard() {
     }, 300);
   };
 
+  const handleExport = () => {
+    const data = threats.map(t => ({
+      id: t.id,
+      type: t.type,
+      level: t.level,
+      source: t.source,
+      target: t.target,
+      blocked: t.blocked,
+    }));
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `static-data-analysis-${Date.now()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast.success('Data exported successfully');
+  };
+
   const criticalCount = threats.filter(t => t.level === 'critical').length;
   const highCount = threats.filter(t => t.level === 'high').length;
   const blockedCount = threats.filter(t => t.blocked).length;
+
+  const threatTypeData = [
+    { name: 'Malware', value: threats.filter(t => t.type === 'malware').length },
+    { name: 'Phishing', value: threats.filter(t => t.type === 'phishing').length },
+    { name: 'DDoS', value: threats.filter(t => t.type === 'ddos').length },
+    { name: 'Intrusion', value: threats.filter(t => t.type === 'intrusion').length },
+    { name: 'Others', value: threats.filter(t => !['malware', 'phishing', 'ddos', 'intrusion'].includes(t.type)).length },
+  ].filter(item => item.value > 0);
+
+  const threatLevelData = [
+    { name: 'Critical', value: criticalCount },
+    { name: 'High', value: highCount },
+    { name: 'Medium', value: threats.filter(t => t.level === 'medium').length },
+    { name: 'Low', value: threats.filter(t => t.level === 'low').length },
+  ].filter(item => item.value > 0);
 
   return (
     <div className="min-h-screen bg-gradient-background p-6 space-y-6">
@@ -61,7 +114,14 @@ export default function StaticDataDashboard() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" className="gap-2">
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".csv,.json,.txt"
+            onChange={handleFileChange}
+            className="hidden"
+          />
+          <Button onClick={handleUpload} variant="outline" className="gap-2">
             <Upload className="h-4 w-4" />
             Upload Dataset
           </Button>
@@ -116,6 +176,15 @@ export default function StaticDataDashboard() {
         />
       </div>
 
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        <ThreatPieChart data={threatTypeData} title="Threat Types Distribution" />
+        <ThreatBarChart 
+          data={threatLevelData} 
+          title="Threat Severity Levels"
+          colors={['hsl(var(--destructive))', 'hsl(var(--warning))', 'hsl(var(--info))', 'hsl(var(--success))']}
+        />
+      </div>
+
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         <Card className="xl:col-span-2 shadow-card">
           <CardHeader className="flex flex-row items-center justify-between">
@@ -124,11 +193,7 @@ export default function StaticDataDashboard() {
               Detected Threats
             </CardTitle>
             <div className="flex gap-2">
-              <Button variant="outline" size="sm" className="gap-2">
-                <Filter className="h-4 w-4" />
-                Filter
-              </Button>
-              <Button variant="outline" size="sm" className="gap-2">
+              <Button onClick={handleExport} variant="outline" size="sm" className="gap-2">
                 <Download className="h-4 w-4" />
                 Export
               </Button>

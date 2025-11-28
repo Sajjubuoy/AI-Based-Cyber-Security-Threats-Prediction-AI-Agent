@@ -3,10 +3,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ThreatCard } from '@/components/security/ThreatCard';
 import { MetricCard } from '@/components/security/MetricCard';
+import { ThreatPieChart } from '@/components/security/ThreatPieChart';
+import { ThreatAreaChart } from '@/components/security/ThreatAreaChart';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { generateThreat } from '@/lib/utils/threatGenerator';
 import { generateNetworkMetrics, generateProtocolDistribution } from '@/lib/utils/dataGenerator';
+import { toast } from 'sonner';
 import type { Threat, NetworkMetrics, ProtocolDistribution } from '@/types';
 import {
   Wifi,
@@ -24,6 +27,8 @@ export default function NetworkDashboard() {
   const [metrics, setMetrics] = useState<NetworkMetrics>(generateNetworkMetrics());
   const [protocols, setProtocols] = useState<ProtocolDistribution[]>([]);
   const [isScanning, setIsScanning] = useState(false);
+  const [vpnStatus, setVpnStatus] = useState<'connected' | 'disconnected'>('disconnected');
+  const [bandwidthHistory, setBandwidthHistory] = useState<Array<{ time: string; value: number }>>([]);
 
   useEffect(() => {
     const initialThreats = [];
@@ -32,6 +37,12 @@ export default function NetworkDashboard() {
     }
     setThreats(initialThreats);
     setProtocols(generateProtocolDistribution());
+    
+    const history = Array.from({ length: 10 }, (_, i) => ({
+      time: `${i}m`,
+      value: Math.floor(Math.random() * 100) + 50,
+    }));
+    setBandwidthHistory(history);
 
     const interval = setInterval(() => {
       if (Math.random() > 0.7) {
@@ -39,6 +50,13 @@ export default function NetworkDashboard() {
         setThreats(prev => [newThreat, ...prev.slice(0, 5)]);
       }
       setMetrics(generateNetworkMetrics());
+      setBandwidthHistory(prev => {
+        const newPoint = {
+          time: `${prev.length}m`,
+          value: Math.floor(Math.random() * 100) + 50,
+        };
+        return [...prev.slice(1), newPoint];
+      });
     }, 4000);
 
     return () => clearInterval(interval);
@@ -46,13 +64,26 @@ export default function NetworkDashboard() {
 
   const handleScan = () => {
     setIsScanning(true);
+    toast.info('Scanning network...');
     setTimeout(() => {
       setIsScanning(false);
       setProtocols(generateProtocolDistribution());
+      toast.success('Network scan completed');
     }, 2000);
   };
 
-  const vpnStatus = Math.random() > 0.5 ? 'connected' : 'disconnected';
+  const handleToggleVPN = () => {
+    const newStatus = vpnStatus === 'connected' ? 'disconnected' : 'connected';
+    setVpnStatus(newStatus);
+    toast.success(`VPN ${newStatus === 'connected' ? 'connected' : 'disconnected'}`);
+  };
+
+  const handleRefresh = () => {
+    setMetrics(generateNetworkMetrics());
+    setProtocols(generateProtocolDistribution());
+    toast.success('Network data refreshed');
+  };
+
   const wifiStatus = 'connected';
 
   return (
@@ -66,15 +97,24 @@ export default function NetworkDashboard() {
             Monitor network connections and detect intrusions
           </p>
         </div>
-        <Button
-          onClick={handleScan}
-          disabled={isScanning}
-          variant="outline"
-          className="gap-2"
-        >
-          <RefreshCw className={`h-4 w-4 ${isScanning ? 'animate-spin' : ''}`} />
-          Scan Network
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            onClick={handleRefresh}
+            variant="outline"
+            size="icon"
+          >
+            <RefreshCw className="h-4 w-4" />
+          </Button>
+          <Button
+            onClick={handleScan}
+            disabled={isScanning}
+            variant="outline"
+            className="gap-2"
+          >
+            <RefreshCw className={`h-4 w-4 ${isScanning ? 'animate-spin' : ''}`} />
+            Scan Network
+          </Button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
@@ -160,6 +200,24 @@ export default function NetworkDashboard() {
                   </div>
                 </div>
               )}
+              
+              <Button 
+                onClick={handleToggleVPN} 
+                className="w-full gap-2"
+                variant={vpnStatus === 'connected' ? 'destructive' : 'default'}
+              >
+                {vpnStatus === 'connected' ? (
+                  <>
+                    <Unlock className="h-4 w-4" />
+                    Disconnect VPN
+                  </>
+                ) : (
+                  <>
+                    <Lock className="h-4 w-4" />
+                    Connect VPN
+                  </>
+                )}
+              </Button>
             </div>
           </CardContent>
         </Card>
@@ -209,6 +267,14 @@ export default function NetworkDashboard() {
             </div>
           </CardContent>
         </Card>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        <ThreatAreaChart data={bandwidthHistory} title="Bandwidth Usage (Mbps)" />
+        <ThreatPieChart 
+          data={protocols.map(p => ({ name: p.protocol, value: p.percentage }))} 
+          title="Protocol Distribution" 
+        />
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">

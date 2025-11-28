@@ -3,11 +3,15 @@ import { MetricCard } from '@/components/security/MetricCard';
 import { ThreatCard } from '@/components/security/ThreatCard';
 import { StatusIndicator } from '@/components/security/StatusIndicator';
 import { AlertBanner } from '@/components/security/AlertBanner';
+import { ThreatLineChart } from '@/components/security/ThreatLineChart';
+import { ThreatPieChart } from '@/components/security/ThreatPieChart';
+import { ThreatAreaChart } from '@/components/security/ThreatAreaChart';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { generateThreat } from '@/lib/utils/threatGenerator';
-import { generateDashboardStats, generateNetworkMetrics } from '@/lib/utils/dataGenerator';
-import type { Threat, DashboardStats, NetworkMetrics } from '@/types';
+import { generateDashboardStats, generateNetworkMetrics, generateTrafficData } from '@/lib/utils/dataGenerator';
+import { toast } from 'sonner';
+import type { Threat, DashboardStats, NetworkMetrics, TrafficData } from '@/types';
 import {
   Shield,
   Activity,
@@ -23,6 +27,7 @@ export default function Home() {
   const [stats, setStats] = useState<DashboardStats>(generateDashboardStats());
   const [metrics, setMetrics] = useState<NetworkMetrics>(generateNetworkMetrics());
   const [recentThreats, setRecentThreats] = useState<Threat[]>([]);
+  const [trafficData, setTrafficData] = useState<TrafficData[]>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   useEffect(() => {
@@ -31,6 +36,7 @@ export default function Home() {
       initialThreats.push(generateThreat());
     }
     setRecentThreats(initialThreats);
+    setTrafficData(generateTrafficData(12));
 
     const interval = setInterval(() => {
       if (Math.random() > 0.7) {
@@ -39,6 +45,10 @@ export default function Home() {
       }
       setStats(generateDashboardStats());
       setMetrics(generateNetworkMetrics());
+      setTrafficData(prev => {
+        const newData = generateTrafficData(1)[0];
+        return [...prev.slice(1), newData];
+      });
     }, 5000);
 
     return () => clearInterval(interval);
@@ -48,8 +58,23 @@ export default function Home() {
     setIsRefreshing(true);
     setStats(generateDashboardStats());
     setMetrics(generateNetworkMetrics());
+    setTrafficData(generateTrafficData(12));
+    toast.success('Dashboard refreshed successfully');
     setTimeout(() => setIsRefreshing(false), 1000);
   };
+
+  const threatDistribution = [
+    { name: 'Malware', value: stats.activeThreats * 0.25 },
+    { name: 'Phishing', value: stats.activeThreats * 0.20 },
+    { name: 'DDoS', value: stats.activeThreats * 0.15 },
+    { name: 'Intrusion', value: stats.activeThreats * 0.15 },
+    { name: 'Others', value: stats.activeThreats * 0.25 },
+  ];
+
+  const trendData = Array.from({ length: 10 }, (_, i) => ({
+    time: `${i}h`,
+    value: Math.floor(Math.random() * 50) + 20,
+  }));
 
   return (
     <div className="min-h-screen bg-gradient-background p-6 space-y-6">
@@ -204,6 +229,13 @@ export default function Home() {
           </Card>
         </div>
       </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        <ThreatLineChart data={trafficData} title="Network Traffic Over Time" />
+        <ThreatPieChart data={threatDistribution} title="Threat Distribution" />
+      </div>
+
+      <ThreatAreaChart data={trendData} title="Threat Detection Trend (Last 10 Hours)" />
 
       <Card className="shadow-card">
         <CardHeader>

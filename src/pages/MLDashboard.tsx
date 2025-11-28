@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { ThreatBarChart } from '@/components/security/ThreatBarChart';
 import {
   getDefaultMLModels,
   simulateModelTraining,
@@ -10,6 +11,7 @@ import {
   formatMetricValue,
   getMetricColor,
 } from '@/lib/utils/mlSimulator';
+import { toast } from 'sonner';
 import type { MLModel } from '@/types';
 import {
   Brain,
@@ -19,6 +21,7 @@ import {
   AlertCircle,
   BarChart3,
   Zap,
+  RefreshCw,
 } from 'lucide-react';
 
 export default function MLDashboard() {
@@ -31,6 +34,9 @@ export default function MLDashboard() {
 
   const handleTrainModel = (modelId: string) => {
     setTrainingModel(modelId);
+    const modelName = models.find(m => m.id === modelId)?.name;
+    toast.info(`Training ${modelName}...`);
+    
     setModels(prev =>
       prev.map(m => (m.id === modelId ? simulateModelTraining(m) : m))
     );
@@ -40,7 +46,17 @@ export default function MLDashboard() {
         prev.map(m => (m.id === modelId ? completeModelTraining(m) : m))
       );
       setTrainingModel(null);
+      toast.success(`${modelName} training completed!`);
     }, 5000);
+  };
+
+  const handleRetrainAll = () => {
+    toast.info('Retraining all models...');
+    models.forEach((model, index) => {
+      setTimeout(() => {
+        handleTrainModel(model.id);
+      }, index * 1000);
+    });
   };
 
   const getStatusIcon = (status: MLModel['status']) => {
@@ -84,10 +100,16 @@ export default function MLDashboard() {
             Machine Learning model performance and training
           </p>
         </div>
-        <Button variant="outline" className="gap-2">
-          <Brain className="h-4 w-4" />
-          Deploy New Model
-        </Button>
+        <div className="flex gap-2">
+          <Button onClick={handleRetrainAll} variant="outline" className="gap-2">
+            <RefreshCw className="h-4 w-4" />
+            Retrain All
+          </Button>
+          <Button variant="outline" className="gap-2">
+            <Brain className="h-4 w-4" />
+            Deploy New Model
+          </Button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
@@ -253,6 +275,12 @@ export default function MLDashboard() {
           </Card>
         ))}
       </div>
+
+      <ThreatBarChart 
+        data={models.map(m => ({ name: m.name, value: m.metrics.accuracy * 100 }))}
+        title="Model Accuracy Comparison"
+        colors={['hsl(var(--primary))']}
+      />
 
       <Card className="shadow-card">
         <CardHeader>

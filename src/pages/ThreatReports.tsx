@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { ThreatBarChart } from '@/components/security/ThreatBarChart';
 import { generateThreats } from '@/lib/utils/threatGenerator';
+import { toast } from 'sonner';
 import type { ThreatReport } from '@/types';
 import {
   FileText,
@@ -13,6 +15,7 @@ import {
   CheckCircle,
   TrendingDown,
   TrendingUp,
+  RefreshCw,
 } from 'lucide-react';
 
 export default function ThreatReports() {
@@ -104,6 +107,43 @@ Status: ${t.blocked ? 'BLOCKED' : 'DETECTED'}${t.resolved ? ' - RESOLVED' : ''}
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+    toast.success('Report downloaded successfully');
+  };
+
+  const handleGenerateReport = () => {
+    toast.info('Generating new report...');
+    setTimeout(() => {
+      const threats = generateThreats(Math.floor(Math.random() * 50) + 20);
+      const startDate = new Date();
+      startDate.setDate(startDate.getDate() - 1);
+      const endDate = new Date();
+
+      const summary = {
+        totalThreats: threats.length,
+        criticalThreats: threats.filter(t => t.level === 'critical').length,
+        highThreats: threats.filter(t => t.level === 'high').length,
+        mediumThreats: threats.filter(t => t.level === 'medium').length,
+        lowThreats: threats.filter(t => t.level === 'low').length,
+        blockedThreats: threats.filter(t => t.blocked).length,
+        resolvedThreats: threats.filter(t => t.resolved).length,
+      };
+
+      const newReport: ThreatReport = {
+        id: `report-new-${Date.now()}`,
+        generatedAt: new Date(),
+        period: { start: startDate, end: endDate },
+        summary,
+        threats,
+        recommendations: [
+          'Increase monitoring on high-risk ports',
+          'Update firewall rules to block suspicious IPs',
+          'Review and update security policies',
+        ],
+      };
+
+      setReports(prev => [newReport, ...prev]);
+      toast.success('New report generated successfully');
+    }, 1500);
   };
 
   return (
@@ -115,10 +155,24 @@ Status: ${t.blocked ? 'BLOCKED' : 'DETECTED'}${t.resolved ? ' - RESOLVED' : ''}
             Historical threat analysis and security recommendations
           </p>
         </div>
-        <Button variant="outline" className="gap-2">
-          <FileText className="h-4 w-4" />
+        <Button onClick={handleGenerateReport} variant="outline" className="gap-2">
+          <RefreshCw className="h-4 w-4" />
           Generate New Report
         </Button>
+      </div>
+
+      {reports.length > 0 && (
+        <ThreatBarChart
+          data={reports.slice(0, 5).reverse().map(r => ({
+            name: r.period.start.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+            value: r.summary.totalThreats,
+          }))}
+          title="Threat Trends (Last 5 Days)"
+          colors={['hsl(var(--destructive))']}
+        />
+      )}
+
+      <div className="space-y-6">
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">

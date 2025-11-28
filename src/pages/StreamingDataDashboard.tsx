@@ -3,9 +3,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ThreatCard } from '@/components/security/ThreatCard';
 import { MetricCard } from '@/components/security/MetricCard';
+import { ThreatLineChart } from '@/components/security/ThreatLineChart';
 import { Badge } from '@/components/ui/badge';
 import { generateThreat } from '@/lib/utils/threatGenerator';
 import { generateTrafficData } from '@/lib/utils/dataGenerator';
+import { toast } from 'sonner';
 import type { Threat, TrafficData } from '@/types';
 import {
   Activity,
@@ -15,6 +17,7 @@ import {
   Pause,
   Play,
   AlertCircle,
+  RefreshCw,
 } from 'lucide-react';
 
 export default function StreamingDataDashboard() {
@@ -62,6 +65,18 @@ export default function StreamingDataDashboard() {
   const activeThreats = threats.filter(t => !t.resolved).length;
   const blockedThreats = threats.filter(t => t.blocked).length;
 
+  const handleToggleStream = () => {
+    setIsStreaming(!isStreaming);
+    toast.info(isStreaming ? 'Stream paused' : 'Stream resumed');
+  };
+
+  const handleRefresh = () => {
+    setTrafficData(generateTrafficData(20));
+    setThreats([]);
+    setTotalEvents(0);
+    toast.success('Dashboard refreshed');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-background p-6 space-y-6">
       <div className="flex items-center justify-between">
@@ -86,7 +101,14 @@ export default function StreamingDataDashboard() {
             {isStreaming ? 'Live' : 'Paused'}
           </Badge>
           <Button
-            onClick={() => setIsStreaming(!isStreaming)}
+            onClick={handleRefresh}
+            variant="outline"
+            size="icon"
+          >
+            <RefreshCw className="h-4 w-4" />
+          </Button>
+          <Button
+            onClick={handleToggleStream}
             variant="outline"
             className="gap-2"
           >
@@ -131,6 +153,8 @@ export default function StreamingDataDashboard() {
           description="Real-time prevention"
         />
       </div>
+
+      <ThreatLineChart data={trafficData.slice(-12)} title="Real-Time Traffic Monitor" />
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         <Card className="xl:col-span-2 shadow-card">
