@@ -1,5 +1,5 @@
 import { Shield } from 'lucide-react';
-import ThreatMap from '@/components/security/ThreatMap';
+import AdvancedThreatMap from '@/components/security/AdvancedThreatMap';
 
 export default function GlobalThreatMap() {
   return (
@@ -10,11 +10,11 @@ export default function GlobalThreatMap() {
           <h1 className="text-3xl font-bold text-foreground">Global Threat Map</h1>
         </div>
         <p className="text-muted-foreground">
-          Real-time visualization of cyber threats across the globe. Monitor threat locations, severity levels, and incident counts.
+          Real-time visualization of cyber threats across 30+ global locations. Monitor threat locations, severity levels, attack patterns, and incident trends.
         </p>
       </div>
 
-      <ThreatMap />
+      <AdvancedThreatMap />
     </div>
   );
 }
