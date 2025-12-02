@@ -248,8 +248,8 @@ export default function AdvancedChatBot() {
           </CardHeader>
 
           <CardContent className="flex-1 flex flex-col p-0 overflow-hidden">
-            <ScrollArea ref={scrollAreaRef} className="flex-1 p-4">
-              <div className="space-y-4">
+            <ScrollArea ref={scrollAreaRef} className="h-[400px] p-4">
+              <div className="space-y-4 pb-4">
                 {messages.map((message) => (
                   <div
                     key={message.id}
