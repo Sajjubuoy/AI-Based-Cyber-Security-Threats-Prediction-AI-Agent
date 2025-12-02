@@ -124,6 +124,18 @@ export default function AdvancedChatBot() {
     }
   }, [messages, isTyping]);
 
+  // Handle ESC key to close chatbot
+  useEffect(() => {
+    const handleEscKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleEscKey);
+    return () => document.removeEventListener('keydown', handleEscKey);
+  }, [isOpen]);
+
   const handleSendMessage = (messageText?: string) => {
     const textToSend = messageText || inputValue;
     if (!textToSend.trim()) return;
@@ -232,7 +244,7 @@ export default function AdvancedChatBot() {
                 variant="ghost"
                 size="icon"
                 onClick={handleExportChat}
-                className="h-8 w-8"
+                className="h-8 w-8 hover:bg-primary/10"
                 title="Export chat history"
               >
                 <Download className="h-4 w-4" />
@@ -241,9 +253,10 @@ export default function AdvancedChatBot() {
                 variant="ghost"
                 size="icon"
                 onClick={() => setIsOpen(false)}
-                className="h-8 w-8"
+                className="h-8 w-8 hover:bg-destructive/10 hover:text-destructive"
+                title="Close chat"
               >
-                <X className="h-4 w-4" />
+                <X className="h-5 w-5" />
               </Button>
             </div>
           </CardHeader>
