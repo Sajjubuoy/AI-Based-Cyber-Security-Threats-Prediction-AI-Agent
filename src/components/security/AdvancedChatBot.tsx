@@ -177,8 +177,9 @@ export default function AdvancedChatBot() {
     toast.success('Chat history exported successfully!');
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
       handleSendMessage();
     }
   };
@@ -349,7 +350,7 @@ export default function AdvancedChatBot() {
                   ref={inputRef}
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  onKeyPress={handleKeyPress}
+                  onKeyDown={handleKeyDown}
                   placeholder="Ask about threats, status, or type 'help'..."
                   className="flex-1 bg-background"
                   disabled={isTyping}
