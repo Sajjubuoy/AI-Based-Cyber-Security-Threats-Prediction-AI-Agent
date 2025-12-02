@@ -67,3 +67,41 @@ All features have been successfully implemented:
 - Professional cybersecurity aesthetics with dark blue theme
 - Desktop-first design with mobile adaptation
 - All lint checks passed successfully
+
+---
+
+# NEW TASK: Add Chatbot and Global Threat Map with Dark Theme
+
+## Plan
+- [x] 1. Set default theme to dark mode
+  - [x] 1.1 Update App.tsx to add dark class to root element
+  - [x] 1.2 Ensure all components use dark theme by default
+
+- [x] 2. Create Global Threat Map component
+  - [x] 2.1 Create ThreatMap.tsx component with react-simple-maps
+  - [x] 2.2 Add mock threat data with global coordinates
+  - [x] 2.3 Add interactive markers for threat locations
+  - [x] 2.4 Add threat severity visualization
+  - [x] 2.5 Create GlobalThreatMap page
+
+- [x] 3. Create AI Chatbot component
+  - [x] 3.1 Create ChatBot.tsx component with chat interface
+  - [x] 3.2 Add AI-like responses for cybersecurity queries
+  - [x] 3.3 Integrate with existing dashboard features
+  - [x] 3.4 Add floating chat button
+  - [x] 3.5 Add chat history and context
+
+- [x] 4. Update routing
+  - [x] 4.1 Add Global Threat Map route
+  - [x] 4.2 Update navigation to include new page
+
+- [x] 5. Testing and validation
+  - [x] 5.1 Test chatbot functionality
+  - [x] 5.2 Test map interactions
+  - [x] 5.3 Verify dark theme across all pages
+  - [x] 5.4 Run lint checks
+
+## Implementation Notes
+- Using react-simple-maps for the global threat map
+- Chatbot will have predefined responses for cybersecurity topics
+- Dark theme should be the default for the entire application

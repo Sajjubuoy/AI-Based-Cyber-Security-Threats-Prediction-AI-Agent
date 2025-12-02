@@ -4,6 +4,7 @@ import StreamingDataDashboard from './pages/StreamingDataDashboard';
 import NetworkDashboard from './pages/NetworkDashboard';
 import MLDashboard from './pages/MLDashboard';
 import ThreatReports from './pages/ThreatReports';
+import GlobalThreatMap from './pages/GlobalThreatMap';
 import type { ReactNode } from 'react';
 
 interface RouteConfig {
@@ -18,6 +19,12 @@ const routes: RouteConfig[] = [
     name: 'Overview',
     path: '/',
     element: <Home />,
+    visible: true,
+  },
+  {
+    name: 'Global Threat Map',
+    path: '/threat-map',
+    element: <GlobalThreatMap />,
     visible: true,
   },
   {
