@@ -33,13 +33,14 @@ http://127.0.0.1:5173
 ## 🎯 Key Features to Try
 
 ### 1. AI Chatbot (Bottom-Right Corner)
-- Click the pulsing blue button
+- Click the pulsing blue button to open
 - Try these commands:
   - "hello"
   - "analyze threats"
   - "show metrics"
   - "critical alerts"
   - "help"
+- **Close chatbot**: Click X button (top-right) or press `ESC` key
 
 ### 2. Command Palette (Keyboard Shortcut)
 - Press `Cmd+K` (Mac) or `Ctrl+K` (Windows)
@@ -174,8 +175,18 @@ Your application is working if you see:
 
 - **Testing Issues**: See TESTING_GUIDE.md
 - **Feature Details**: See ADVANCED_FEATURES.md
+- **Chatbot Close Options**: See CHATBOT_CLOSE_OPTIONS.md
 - **Console Errors**: Press F12 and check Console tab
 - **Performance**: Check Performance tab in DevTools
+
+---
+
+## ⌨️ Keyboard Shortcuts
+
+- `Cmd+K` / `Ctrl+K` - Open command palette
+- `ESC` - Close chatbot
+- `Enter` - Send message in chatbot
+- `Shift+Enter` - New line in chatbot
 
 ---
 
@@ -183,7 +194,7 @@ Your application is working if you see:
 
 Your AI Cybersecurity System v3.0 is now running with:
 
-- ✅ Enhanced AI Chatbot
+- ✅ Enhanced AI Chatbot (with ESC to close)
 - ✅ Particle Background Effects
 - ✅ Real-time Threat Feed
 - ✅ Command Palette (Cmd+K)
@@ -196,7 +207,7 @@ Your AI Cybersecurity System v3.0 is now running with:
 
 ---
 
-**Version**: 3.0.0 Advanced Edition  
+**Version**: 3.0.1 Advanced Edition  
 **Status**: Production Ready  
 **Performance**: 60fps  
 **Quality**: ⭐⭐⭐⭐⭐  
