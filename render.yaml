@@ -1,0 +1,5 @@
+services:
+  - type: static_site
+    name: vite-site
+    buildCommand: "pnpm install --no-frozen-lockfile && pnpm run build"
+    staticPublishPath: "dist"
