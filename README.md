@@ -1,96 +1,90 @@
-# Welcome to Your Miaoda Project
-Miaoda Application Link URL
-    URL:https://medo.dev/projects/app-7vfk0ympmqdd
+# 🛡️ CyberShield AI
 
-# Welcome to Your Miaoda Project
+**A Comprehensive Cybersecurity Threat Prediction & Monitoring System**
 
-## Project Info
+CyberShield AI is an intelligent web application leveraging Artificial Intelligence to detect, analyze, and mitigate potential cyber security threats in real-time. The application features multiple specialized dashboards for different data sources, using interactive visualizations to track network health, ML model performance, and live threat streams.
 
-## Project Directory
+---
 
-```
-├── README.md # Documentation
-├── components.json # Component library configuration
-├── eslint.config.js # ESLint configuration
-├── index.html # Entry file
-├── package.json # Package management
-├── postcss.config.js # PostCSS configuration
-├── public # Static resources directory
-│   ├── favicon.png # Icon
-│   └── images # Image resources
-├── src # Source code directory
-│   ├── App.tsx # Entry file
-│   ├── components # Components directory
-│   ├── context # Context directory
-│   ├── db # Database configuration directory
-│   ├── hooks # Common hooks directory
-│   ├── index.css # Global styles
-│   ├── layout # Layout directory
-│   ├── lib # Utility library directory
-│   ├── main.tsx # Entry file
-│   ├── routes.tsx # Routing configuration
-│   ├── pages # Pages directory
-│   ├── services # Database interaction directory
-│   ├── types # Type definitions directory
-├── tsconfig.app.json # TypeScript frontend configuration file
-├── tsconfig.json # TypeScript configuration file
-├── tsconfig.node.json # TypeScript Node.js configuration file
-└── vite.config.ts # Vite configuration file
-```
+## 🚀 Live Demo & Video
 
-## Tech Stack
+* **🔴 Live Application:** [**Click here to view CyberShield AI on Render**](https://ai-based-cyber-security-threats-heyd.onrender.com)
+* **🎥 Project Walkthrough:** [**Watch the Demo Video on Google Drive**](https://drive.google.com/file/d/16mPt0eMVJx8iTFUoZ_bO0x2eOkGPjgGy/view?usp=drive_link)
 
-Vite, TypeScript, React, Supabase
+---
 
-## Development Guidelines
+## 🌟 Key Features
 
-### How to edit code locally?
+### 📊 Interactive Data Visualization
+Powered by **Recharts**, the application translates complex security data into actionable insights:
+* **Line Charts:** Monitor network traffic trends and real-time streams.
+* **Pie Charts:** Visualize threat distribution and protocol analysis.
+* **Bar Charts:** Compare threat severity levels and ML model accuracy.
+* **Area Charts:** Track bandwidth usage and analyzing patterns.
 
-You can choose [VSCode](https://code.visualstudio.com/Download) or any IDE you prefer. The only requirement is to have Node.js and npm installed.
+### 🖥️ Specialized Dashboards
 
-### Environment Requirements
+#### 1. Home Dashboard
+* Central hub for real-time threat monitoring.
+* **Features:** Auto-refreshing metrics, system health indicators, and traffic visualization charts.
 
-```
-# Node.js ≥ 20
-# npm ≥ 10
-Example:
-# node -v   # v20.18.3
-# npm -v    # 10.8.2
-```
+#### 2. Static Data Dashboard
+* Analyze historical datasets for patterns.
+* **Features:** Upload `.csv/.json` datasets, run analysis algorithms, and export results.
 
-### Installing Node.js on Windows
+#### 3. Streaming Data Dashboard
+* Simulates real-time network environments.
+* **Features:** Pause/Resume live streams, live status indicators, and real-time traffic monitoring.
 
-```
-# Step 1: Visit the Node.js official website: https://nodejs.org/, click download. The website will automatically suggest a suitable version (32-bit or 64-bit) for your system.
-# Step 2: Run the installer: Double-click the downloaded installer to run it.
-# Step 3: Complete the installation: Follow the installation wizard to complete the process.
-# Step 4: Verify installation: Open Command Prompt (cmd) or your IDE terminal, and type `node -v` and `npm -v` to check if Node.js and npm are installed correctly.
-```
+#### 4. ML (Machine Learning) Dashboard
+* Manage and monitor AI models.
+* **Features:** Train individual models, batch retraining ("Retrain All"), and track accuracy metrics in real-time.
 
-### Installing Node.js on macOS
+#### 5. Network VPN/WiFi Dashboard
+* Monitor connection status and bandwidth.
+* **Features:** VPN Toggle (Connect/Disconnect), network scanning, and protocol distribution analysis.
 
-```
-# Step 1: Using Homebrew (Recommended method): Open Terminal. Type the command `brew install node` and press Enter. If Homebrew is not installed, you need to install it first by running the following command in Terminal:
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-Alternatively, use the official installer: Visit the Node.js official website. Download the macOS .pkg installer. Open the downloaded .pkg file and follow the prompts to complete the installation.
-# Step 2: Verify installation: Open Command Prompt (cmd) or your IDE terminal, and type `node -v` and `npm -v` to check if Node.js and npm are installed correctly.
-```
+#### 6. Threat Reports
+* Generate comprehensive security summaries.
+* **Features:** Downloadable text reports, historical threat analysis, and security recommendations.
 
-### After installation, follow these steps:
+---
 
-```
-# Step 1: Download the code package
-# Step 2: Extract the code package
-# Step 3: Open the code package with your IDE and navigate into the code directory
-# Step 4: In the IDE terminal, run the command to install dependencies: npm i
-# Step 5: In the IDE terminal, run the command to start the development server: npm run dev -- --host 127.0.0.1
-# Step 6: if step 5 failed, try this command to start the development server: npx vite --host 127.0.0.1
-```
+## 🛠️ Tech Stack
 
-### How to develop backend services?
+* **Frontend Framework:** React 18 with TypeScript
+* **Styling:** Tailwind CSS
+* **UI Components:** shadcn/ui & Radix UI
+* **Visualization:** Recharts
+* **Icons:** Lucide React
+* **Notifications:** Sonner (Toast notifications)
+* **Build Tool:** Vite
+* **Deployment:** Render
 
-Configure environment variables and install relevant dependencies.If you need to use a database, please use the official version of Supabase.
+---
 
-## Learn More
+## 📂 Project Structure
 
-You can also check the help documentation: Download and Building the app（ [https://intl.cloud.baidu.com/en/doc/MIAODA/s/download-and-building-the-app-en](https://intl.cloud.baidu.com/en/doc/MIAODA/s/download-and-building-the-app-en)）to learn more detailed content.
+```bash
+src/
+├── components/
+│   ├── security/
+│   │   ├── ThreatLineChart.tsx      # Time-series visualization
+│   │   ├── ThreatPieChart.tsx       # Distribution visualization
+│   │   ├── ThreatBarChart.tsx       # Categorical comparison
+│   │   ├── ThreatAreaChart.tsx      # Trend analysis
+│   │   ├── MetricCard.tsx           # KPI display
+│   │   └── AlertBanner.tsx          # Critical notifications
+│   └── common/
+│       ├── Header.tsx
+│       └── Footer.tsx
+├── pages/
+│   ├── Home.tsx                     # Main dashboard
+│   ├── StaticDataDashboard.tsx      # File upload & analysis
+│   ├── StreamingDataDashboard.tsx   # Real-time simulation
+│   ├── MLDashboard.tsx              # Model training interface
+│   ├── NetworkDashboard.tsx         # VPN & WiFi controls
+│   └── ThreatReports.tsx            # Reporting system
+├── lib/
+│   └── utils/                       # Generators for simulation data
+└── types/                           # TypeScript definitions
