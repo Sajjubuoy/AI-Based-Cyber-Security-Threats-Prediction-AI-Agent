@@ -1,6 +1,6 @@
 import Home from './pages/Home';
 import StaticDataDashboard from './pages/StaticDataDashboard';
-import StreamingDataDashboard from './pages/StreamingDataDashboard';
+import LiveMonitoring from './pages/LiveMonitoring';
 import NetworkDashboard from './pages/NetworkDashboard';
 import MLDashboard from './pages/MLDashboard';
 import ThreatReports from './pages/ThreatReports';
@@ -34,9 +34,9 @@ const routes: RouteConfig[] = [
     visible: true,
   },
   {
-    name: 'Streaming Data',
+    name: 'Live Monitoring',
     path: '/streaming-data',
-    element: <StreamingDataDashboard />,
+    element: <LiveMonitoring />,
     visible: true,
   },
   {

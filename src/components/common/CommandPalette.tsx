@@ -43,7 +43,7 @@ export default function CommandPalette() {
     },
     {
       id: 'nav-streaming',
-      label: 'Go to Streaming Data Dashboard',
+      label: 'Go to Live Monitoring',
       icon: Activity,
       action: () => navigate('/streaming-data'),
       category: 'Navigation',

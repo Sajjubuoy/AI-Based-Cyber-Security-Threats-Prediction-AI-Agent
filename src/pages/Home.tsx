@@ -212,9 +212,9 @@ export default function Home() {
                 <span className="text-xs text-muted-foreground">Active</span>
               </div>
               <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
-                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2">
                   <div className="h-2 w-2 rounded-full bg-success" />
-                  <span className="text-sm font-medium">Streaming Data</span>
+                  <span className="text-sm font-medium">Live Monitoring</span>
                 </div>
                 <span className="text-xs text-muted-foreground">Active</span>
               </div>
