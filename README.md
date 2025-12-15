@@ -13,9 +13,9 @@ CyberShield AI is an intelligent web application leveraging Artificial Intellige
 ## 🚀 Live Demo & Video
 
 * **🔴 Live Application:** [**Click here to view CyberShield AI on Render**](https://ai-based-cyber-security-threats-heyd.onrender.com)
-* **🎥 Project Walkthrough:** * https://github.com/user-attachments/assets/7a0501ac-a677-4586-9615-573f9bb1d4bd
+* **🎥 Project Walkthrough:** 
 
-
+* https://github.com/user-attachments/assets/7a0501ac-a677-4586-9615-573f9bb1d4bd
 ---
 
 ## 🌟 Key Features
