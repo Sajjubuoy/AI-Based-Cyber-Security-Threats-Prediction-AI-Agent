@@ -1,20 +1,11 @@
-
-
-
-
-
 # 🛡️ CyberShield AI
 
 **A Comprehensive Cybersecurity Threat Prediction & Monitoring System**
 
-CyberShield AI is an intelligent web application leveraging Artificial Intelligence to detect, analyze, and mitigate potential cyber security threats in real-time. The application features multiple specialized dashboards for different data sources, using interactive visualizations to track network health, ML model performance, and live threat streams.
+CyberShield AI is an intelligent web application that leverages **Artificial Intelligence** to detect, analyze, and mitigate potential cybersecurity threats in **real time**.  
+It provides multiple **specialized dashboards** for different data sources, using **interactive visualizations** to monitor network health, ML model performance, and live threat streams.
 
 ---
-
-## 📌 Agile Documentation
-
-📥 **Agile Project Document (Excel)**  
-[Download Agile Document](Agile%20document%20group1.xls)
 
 ## 🏗️ System Architecture
 
@@ -26,63 +17,80 @@ CyberShield AI is an intelligent web application leveraging Artificial Intellige
   />
 </p>
 
+<p align="center"><i>High-level architecture of the CyberShield AI threat detection and monitoring system</i></p>
 
+---
 
-## 🚀 Live Demo & Video
+## 🚀 Live Demo & Project Walkthrough
 
-* **🔴 Live Application:** [**Click here to view CyberShield AI on Render**](https://ai-based-cyber-security-threats-heyd.onrender.com)
-* **🎥 Project Walkthrough:** 
+- 🔴 **Live Application**  
+  👉 [View CyberShield AI on Render](https://ai-based-cyber-security-threats-heyd.onrender.com)
 
-* https://github.com/user-attachments/assets/7a0501ac-a677-4586-9615-573f9bb1d4bd
+- 🎥 **Project Walkthrough Video**  
+  https://github.com/user-attachments/assets/7a0501ac-a677-4586-9615-573f9bb1d4bd
+
 ---
 
 ## 🌟 Key Features
 
 ### 📊 Interactive Data Visualization
-Powered by **Recharts**, the application translates complex security data into actionable insights:
-* **Line Charts:** Monitor network traffic trends and real-time streams.
-* **Pie Charts:** Visualize threat distribution and protocol analysis.
-* **Bar Charts:** Compare threat severity levels and ML model accuracy.
-* **Area Charts:** Track bandwidth usage and analyzing patterns.
+Powered by **Recharts**, the application converts complex security data into actionable insights:
+
+- **Line Charts:** Monitor network traffic trends and real-time streams  
+- **Pie Charts:** Visualize threat distribution and protocol analysis  
+- **Bar Charts:** Compare threat severity levels and ML model accuracy  
+- **Area Charts:** Track bandwidth usage and pattern analysis  
+
+---
 
 ### 🖥️ Specialized Dashboards
 
-#### 1. Home Dashboard
-* Central hub for real-time threat monitoring.
-* **Features:** Auto-refreshing metrics, system health indicators, and traffic visualization charts.
+#### 🏠 1. Home Dashboard
+- Central hub for real-time threat monitoring  
+- **Features:** Auto-refreshing metrics, system health indicators, and traffic visualization  
 
-#### 2. Static Data Dashboard
-* Analyze historical datasets for patterns.
-* **Features:** Upload `.csv/.json` datasets, run analysis algorithms, and export results.
+#### 📁 2. Static Data Dashboard
+- Analyze historical datasets for anomaly detection  
+- **Features:** Upload `.csv / .json` files, run analysis algorithms, export results  
 
-#### 3. Streaming Data Dashboard
-* Simulates real-time network environments.
-* **Features:** Pause/Resume live streams, live status indicators, and real-time traffic monitoring.
+#### 🔄 3. Streaming Data Dashboard
+- Simulates real-time network environments  
+- **Features:** Pause/Resume streams, live status indicators, traffic monitoring  
 
-#### 4. ML (Machine Learning) Dashboard
-* Manage and monitor AI models.
-* **Features:** Train individual models, batch retraining ("Retrain All"), and track accuracy metrics in real-time.
+#### 🤖 4. ML (Machine Learning) Dashboard
+- Manage and monitor AI models  
+- **Features:**  
+  - Train individual models  
+  - Batch retraining (**Retrain All**)  
+  - Real-time accuracy tracking  
 
-#### 5. Network VPN/WiFi Dashboard
-* Monitor connection status and bandwidth.
-* **Features:** VPN Toggle (Connect/Disconnect), network scanning, and protocol distribution analysis.
+#### 🌐 5. Network VPN / WiFi Dashboard
+- Monitor connection status and bandwidth usage  
+- **Features:** VPN connect/disconnect, network scanning, protocol analysis  
 
-#### 6. Threat Reports
-* Generate comprehensive security summaries.
-* **Features:** Downloadable text reports, historical threat analysis, and security recommendations.
+#### 📄 6. Threat Reports
+- Generate comprehensive security summaries  
+- **Features:** Downloadable reports, historical threat analysis, security recommendations  
 
 ---
 
 ## 🛠️ Tech Stack
 
-* **Frontend Framework:** React 18 with TypeScript
-* **Styling:** Tailwind CSS
-* **UI Components:** shadcn/ui & Radix UI
-* **Visualization:** Recharts
-* **Icons:** Lucide React
-* **Notifications:** Sonner (Toast notifications)
-* **Build Tool:** Vite
-* **Deployment:** Render
+- **Frontend:** React 18 + TypeScript  
+- **Styling:** Tailwind CSS  
+- **UI Components:** shadcn/ui, Radix UI  
+- **Charts & Visualization:** Recharts  
+- **Icons:** Lucide React  
+- **Notifications:** Sonner (Toast notifications)  
+- **Build Tool:** Vite  
+- **Deployment:** Render  
+
+---
+
+## 📌 Agile Documentation
+
+📥 **Agile Project Document (Excel)**  
+👉 [Download Agile Document](Agile%20document%20group1.xls)
 
 ---
 
@@ -92,22 +100,8 @@ Powered by **Recharts**, the application translates complex security data into a
 src/
 ├── components/
 │   ├── security/
-│   │   ├── ThreatLineChart.tsx      # Time-series visualization
-│   │   ├── ThreatPieChart.tsx       # Distribution visualization
-│   │   ├── ThreatBarChart.tsx       # Categorical comparison
-│   │   ├── ThreatAreaChart.tsx      # Trend analysis
-│   │   ├── MetricCard.tsx           # KPI display
-│   │   └── AlertBanner.tsx          # Critical notifications
-│   └── common/
-│       ├── Header.tsx
-│       └── Footer.tsx
-├── pages/
-│   ├── Home.tsx                     # Main dashboard
-│   ├── StaticDataDashboard.tsx      # File upload & analysis
-│   ├── StreamingDataDashboard.tsx   # Real-time simulation
-│   ├── MLDashboard.tsx              # Model training interface
-│   ├── NetworkDashboard.tsx         # VPN & WiFi controls
-│   └── ThreatReports.tsx            # Reporting system
-├── lib/
-│   └── utils/                       # Generators for simulation data
-└── types/                           # TypeScript definitions
+│   │   ├── ThreatLineChart.tsx    # Time-series visualization
+│   │   ├── ThreatPieChart.tsx     # Distribution visualization
+│   │   ├── ThreatBarChart.tsx     # Categorical comparison
+│   │   ├── ThreatAreaChart.tsx   # Trend analysis
+│   │   ├── MetricCard.tsx        # KPI display
