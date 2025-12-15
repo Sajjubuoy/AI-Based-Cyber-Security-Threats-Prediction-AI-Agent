@@ -26,8 +26,10 @@ It provides multiple **specialized dashboards** for different data sources, usin
 - 🔴 **Live Application**  
   👉 [View CyberShield AI on Render](https://ai-based-cyber-security-threats-heyd.onrender.com)
 
-- 🎥 **Project Walkthrough Video**  
-  https://github.com/user-attachments/assets/7a0501ac-a677-4586-9615-573f9bb1d4bd
+### 🎥 Project Walkthrough
+
+https://github.com/user-attachments/assets/7a0501ac-a677-4586-9615-573f9bb1d4bd
+
 
 ---
 
