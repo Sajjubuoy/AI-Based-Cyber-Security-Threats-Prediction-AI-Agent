@@ -2,6 +2,7 @@
 
 
 
+
 # 🛡️ CyberShield AI
 
 **A Comprehensive Cybersecurity Threat Prediction & Monitoring System**
@@ -14,6 +15,17 @@ CyberShield AI is an intelligent web application leveraging Artificial Intellige
 
 📥 **Agile Project Document (Excel)**  
 [Download Agile Document](Agile%20document%20group1.xls)
+
+## 🏗️ System Architecture
+
+<p align="center">
+  <img 
+    src="https://github.com/user-attachments/assets/9068fc64-300c-4699-9531-61283803d856"
+    alt="CyberShield AI System Architecture"
+    width="900"
+  />
+</p>
+
 
 
 ## 🚀 Live Demo & Video
