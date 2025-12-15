@@ -10,6 +10,12 @@ CyberShield AI is an intelligent web application leveraging Artificial Intellige
 
 ---
 
+## 📌 Agile Documentation
+
+📥 **Agile Project Document (Excel)**  
+[Download Agile Document](Agile%20document%20group1.xls)
+
+
 ## 🚀 Live Demo & Video
 
 * **🔴 Live Application:** [**Click here to view CyberShield AI on Render**](https://ai-based-cyber-security-threats-heyd.onrender.com)
